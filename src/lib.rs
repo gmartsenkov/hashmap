@@ -38,6 +38,16 @@ where
 
         None
     }
+
+    pub fn get(&self, key: K) -> Option<V> {
+        for element in self.nodes.iter() {
+            if element.key == key {
+                return Some(element.value.clone());
+            }
+        }
+
+        None
+    }
 }
 
 #[cfg(test)]
@@ -46,12 +56,25 @@ mod test {
 
     #[test]
     fn test_hashmap_insert() {
-        let mut map: HashMap<String, String> = HashMap::new();
+        let mut map: HashMap<&str, &str> = HashMap::new();
 
-        assert_eq!(map.insert("fruit".to_string(), "apple".to_string()), None);
+        assert_eq!(map.insert("fruit", "apple"), None);
         assert_eq!(
-            map.insert("fruit".to_string(), "strawberry".to_string()),
-            Some("apple".to_string())
+            map.insert("fruit", "strawberry"),
+            Some("apple")
         );
+    }
+
+    #[test]
+    fn test_hashmap_get() {
+        let mut map: HashMap<&str, &str> = HashMap::new();
+
+        map.insert("fruit", "apple");
+        map.insert("car", "sedan");
+
+        assert_eq!(map.get("missing"), None);
+
+        assert_eq!(map.get("fruit"), Some("apple"));
+        assert_eq!(map.get("car"), Some("sedan"));
     }
 }
