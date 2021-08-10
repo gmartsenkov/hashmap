@@ -3,7 +3,7 @@ struct HashNode<K, V> {
     value: V,
 }
 
-struct HashMap<K, V> {
+pub struct HashMap<K, V> {
     nodes: Vec<HashNode<K, V>>,
 }
 
@@ -51,7 +51,7 @@ where
 }
 
 #[cfg(test)]
-mod test {
+mod tests {
     use super::*;
 
     #[test]
